@@ -1,92 +1,141 @@
+/*  ---------------------------------------------------
+    Template Name: Phozogy
+    Description:  Phozogy photography HTML Template
+    Author: Colorlib
+    Author URI: https://colorlib.com
+    Version: 1.0
+    Created: Colorlib
+---------------------------------------------------------  */
+
+'use strict';
+
 (function ($) {
-    "use strict";
 
-    // Spinner
-    var spinner = function () {
-        setTimeout(function () {
-            if ($('#spinner').length > 0) {
-                $('#spinner').removeClass('show');
-            }
-        }, 1);
-    };
-    spinner();
-    
-    
-    // Initiate the wowjs
-    new WOW().init();
-
-
-    // Navbar on scrolling
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.navbar').fadeIn('slow').css('display', 'flex');
-        } else {
-            $('.navbar').fadeOut('slow').css('display', 'none');
-        }
+    /*------------------
+        Preloader
+    --------------------*/
+    $(window).on('load', function () {
+        $(".loader").fadeOut();
+        $("#preloder").delay(200).fadeOut("slow");
     });
 
-
-    // Modal Video
-    var $videoSrc;
-    $('.btn-play').click(function () {
-        $videoSrc = $(this).data("src");
-    });
-    console.log($videoSrc);
-    $('#videoModal').on('shown.bs.modal', function (e) {
-        $("#video").attr('src', $videoSrc + "?autoplay=1&amp;modestbranding=1&amp;showinfo=0");
-    })
-    $('#videoModal').on('hide.bs.modal', function (e) {
-        $("#video").attr('src', $videoSrc);
-    })
-    
-    
-    // Back to top button
-    $(window).scroll(function () {
-        if ($(this).scrollTop() > 300) {
-            $('.back-to-top').fadeIn('slow');
-        } else {
-            $('.back-to-top').fadeOut('slow');
-        }
-    });
-    $('.back-to-top').click(function () {
-        $('html, body').animate({scrollTop: 0}, 1500, 'easeInOutExpo');
-        return false;
+    /*------------------
+        Background Set
+    --------------------*/
+    $('.set-bg').each(function () {
+        var bg = $(this).data('setbg');
+        $(this).css('background-image', 'url(' + bg + ')');
     });
 
-
-    // Facts counter
-    $('[data-toggle="counter-up"]').counterUp({
-        delay: 10,
-        time: 2000
+    // Search model
+    $('.search-switch').on('click', function () {
+        $('.search-model').fadeIn(400);
     });
 
+    $('.search-close-switch').on('click', function () {
+        $('.search-model').fadeOut(400, function () {
+            $('#search-input').val('');
+        });
+    });
 
-    // Testimonials carousel
-    $(".testimonial-carousel").owlCarousel({
-        autoplay: false,
-        smartSpeed: 1000,
-        margin: 25,
+    // Isotppe Filter
+    $(".filter-controls li").on('click', function() {
+        var filterData = $(this).attr("data-filter");
+
+        $(".portfolio-filter, .gallery-filter").isotope({
+            filter: filterData,
+        });
+
+        $(".filter-controls li").removeClass('active');
+        $(this).addClass('active');
+    });
+
+    $(".portfolio-filter, .gallery-filter").isotope({
+        itemSelector: '.pf-item, .gf-item',
+        percentPosition: true,
+        masonry: {
+        // use element for option
+        columnWidth: '.pf-item, .gf-item',
+        horizontalOrder: true,
+      }
+    });
+
+    //Masonary
+    $('.portfolio-details-pic').masonry({
+        itemSelector: '.pdp-item',
+        columnWidth: '.pdp-item'
+    });
+
+    /*------------------
+		Navigation
+	--------------------*/
+    $(".mobile-menu").slicknav({
+        prependTo: '#mobile-menu-wrap',
+        allowParentLinks: true
+    });
+
+    /*------------------
+        Carousel Slider
+    --------------------*/
+    var hero_s = $(".hs-slider");
+    hero_s.owlCarousel({
         loop: true,
-        center: true,
+        margin: 0,
+        nav: true,
+        items: 1,
+        dots: false,
+        animateOut: 'fadeOut',
+        animateIn: 'fadeIn',
+        navText: ['<span class="arrow_carrot-left"></span>', '<span class="arrow_carrot-right"></span>'],
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true
+    });
+
+    /*------------------
+        Team Slider
+    --------------------*/
+    $(".categories-slider").owlCarousel({
+        loop: true,
+        margin: 20,
+        items: 3,
         dots: false,
         nav: true,
-        navText : [
-            '<i class="bi bi-chevron-left"></i>',
-            '<i class="bi bi-chevron-right"></i>'
-        ],
+        navText: ['<span class="arrow_carrot-left"></span>', '<span class="arrow_carrot-right"></span>'],
+        stagePadding: 120,
+        smartSpeed: 1200,
+        autoHeight: false,
+        autoplay: true,
         responsive: {
-            0:{
-                items:1
+            0: {
+                items: 1,
+                stagePadding: 0
             },
-            768:{
-                items:2
+            768: {
+                items: 2,
+                stagePadding: 0
             },
-            992:{
-                items:3
+            992: {
+                items: 2
+            },
+            1200: {
+                items: 3
             }
         }
     });
 
-    
-})(jQuery);
+    /*------------------
+        Image Popup
+    --------------------*/
+    $('.image-popup').magnificPopup({
+        type: 'image'
+    });
 
+    /*------------------
+        Video Popup
+    --------------------*/
+    $('.video-popup').magnificPopup({
+        type: 'iframe'
+    });
+
+})(jQuery);
