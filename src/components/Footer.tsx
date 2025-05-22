@@ -79,15 +79,15 @@ const Footer: React.FC = () => {
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
                 <MapPin size={20} className="text-accent-500 flex-shrink-0 mt-1" />
-                <span className="text-gray-400">123 Photography Lane, Creative City, State 12345</span>
+                <span className="text-gray-400">Anjaneyar Kovil St, Sabapathy Nagar, Noothencheri, Vengavasal, Chennai, Tamil Nadu 600126</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Phone size={20} className="text-accent-500 flex-shrink-0" />
-                <span className="text-gray-400">(555) 123-4567</span>
+                <span className="text-gray-400">+91 97899 11305</span>
               </li>
               <li className="flex items-center space-x-3">
                 <Mail size={20} className="text-accent-500 flex-shrink-0" />
-                <span className="text-gray-400">info@vividphotostudio.com</span>
+                <span className="text-gray-400">VividPhotoStudio@gmail.com</span>
               </li>
             </ul>
           </div>
